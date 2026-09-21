@@ -61,8 +61,8 @@ function shopStatus() {
 function Logo() {
   return (
     <span className="flex items-center gap-3">
-      <img src={`${import.meta.env.BASE_URL}img/logo-neon.svg`} alt="AK Enterprises" className="h-10 w-10" />
-      <span className="text-base font-semibold leading-6 text-white">AK Enterprises</span>
+      <img src={`${import.meta.env.BASE_URL}img/logo-neon.svg`} alt="AK Enterprises" className="h-12 w-12" />
+      <span className="text-lg font-semibold leading-6 text-white">AK Enterprises</span>
     </span>
   );
 }
