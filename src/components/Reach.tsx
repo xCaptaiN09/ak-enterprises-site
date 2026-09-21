@@ -1,23 +1,43 @@
-const CX = 320;
-const CY = 240;
-const R = 220;
+type Pt = [number, number];
 
-type Dot = { x: number; y: number; k: number };
+const LAND: Pt[][] = [
+  [[-168, 66], [-140, 70], [-120, 72], [-90, 72], [-70, 62], [-55, 50], [-65, 45], [-75, 35], [-80, 25], [-85, 12], [-78, 8], [-95, 18], [-105, 20], [-115, 30], [-125, 40], [-135, 55], [-150, 60]],
+  [[-45, 60], [-20, 70], [-20, 82], [-40, 84], [-55, 75]],
+  [[-78, 8], [-60, 10], [-50, 0], [-35, -8], [-40, -20], [-55, -30], [-65, -45], [-70, -54], [-75, -45], [-72, -30], [-70, -15], [-78, -5]],
+  [[-10, 36], [-5, 48], [0, 52], [5, 58], [10, 63], [20, 70], [30, 70], [30, 60], [30, 45], [25, 36], [15, 38], [5, 36]],
+  [[-17, 15], [-10, 25], [0, 32], [10, 34], [20, 32], [32, 30], [43, 12], [51, 10], [40, -5], [35, -20], [30, -30], [20, -35], [15, -28], [12, -15], [8, 0], [-5, 5], [-12, 8]],
+  [[30, 60], [45, 68], [60, 72], [80, 74], [100, 72], [120, 70], [140, 66], [160, 68], [180, 66], [180, 62], [160, 55], [150, 45], [140, 40], [130, 35], [122, 30], [110, 20], [105, 10], [100, 5], [98, 10], [95, 15], [90, 22], [85, 20], [80, 8], [72, 18], [68, 24], [60, 25], [58, 20], [55, 17], [45, 12], [43, 12], [35, 28], [35, 32], [30, 45]],
+  [[130, 32], [135, 35], [140, 40], [142, 44], [140, 45], [135, 36], [130, 33]],
+  [[95, 5], [105, -5], [115, -8], [125, -9], [135, -5], [140, -8], [132, -2], [120, 0], [110, 2], [100, 4]],
+  [[115, -22], [125, -15], [135, -12], [142, -11], [147, -18], [153, -25], [150, -35], [140, -38], [130, -32], [120, -34], [114, -28]],
+];
 
-function buildDots(): Dot[] {
-  const out: Dot[] = [];
-  for (let y = 6; y <= 474; y += 12) {
-    for (let x = 6; x <= 634; x += 12) {
-      const d = Math.hypot(x - CX, y - CY);
-      if (d <= R) out.push({ x, y, k: d <= 70 ? 2 : d <= 140 ? 1 : 0 });
-    }
+const INDIA: Pt[] = [
+  [68, 24], [72, 20], [73, 15], [76, 8], [80, 8], [82, 12], [85, 18], [88, 22], [92, 22], [90, 25], [85, 27], [80, 30], [75, 32], [72, 28],
+];
+
+function inside(lon: number, lat: number, poly: Pt[]): boolean {
+  let ok = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [xi, yi] = poly[i];
+    const [xj, yj] = poly[j];
+    if (yi > lat !== yj > lat && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) ok = !ok;
   }
-  return out;
+  return ok;
 }
 
-const DOTS = buildDots();
+const DOTS: { x: number; y: number; k: 0 | 1 }[] = [];
+for (let lat = 72; lat >= -56; lat -= 4) {
+  for (let lon = -180; lon <= 180; lon += 4) {
+    const x = (lon + 180) * 2.5;
+    const y = (90 - lat) * 2.5;
+    if (inside(lon, lat, INDIA)) DOTS.push({ x, y, k: 1 });
+    else if (LAND.some((p) => inside(lon, lat, p))) DOTS.push({ x, y, k: 0 });
+  }
+}
 
-const FILL = ['rgba(11,12,12,0.16)', 'rgba(11,12,12,0.35)', '#5eead4'];
+const MX = (75.78 + 180) * 2.5;
+const MY = (90 - 11.25) * 2.5;
 
 export default function Reach() {
   return (
@@ -52,19 +72,16 @@ export default function Reach() {
         </div>
 
         <div className="fade-up">
-          <svg viewBox="0 0 640 480" className="h-auto w-full" role="img" aria-label="Service radius around Chelavoor">
-            {[70, 140, 220].map((r) => (
-              <circle key={r} cx={CX} cy={CY} r={r} fill="none" stroke="rgba(11,12,12,0.08)" strokeWidth="1" />
-            ))}
+          <svg viewBox="0 0 900 450" className="h-auto w-full" role="img" aria-label="World map with India highlighted">
             {DOTS.map((d, i) => (
-              <circle key={i} cx={d.x} cy={d.y} r="2.4" fill={FILL[d.k]} />
+              <circle key={i} cx={d.x} cy={d.y} r="2.4" fill={d.k === 1 ? '#5eead4' : 'rgba(11,12,12,0.18)'} />
             ))}
-            <circle cx={CX} cy={CY} r="14" fill="#5eead4" opacity="0.25" />
-            <circle cx={CX} cy={CY} r="6" fill="#5eead4" />
+            <circle cx={MX} cy={MY} r="12" fill="#5eead4" opacity="0.25" />
+            <circle cx={MX} cy={MY} r="5" fill="#5eead4" />
           </svg>
           <div className="mt-4 flex justify-between font-mono text-[10px] tracking-widest text-ink/40 uppercase">
             <span>Chelavoor · 11.25°N 75.78°E</span>
-            <span>15 km service radius</span>
+            <span>HQ · Kozhikode, India</span>
           </div>
         </div>
       </div>
