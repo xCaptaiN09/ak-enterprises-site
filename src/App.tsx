@@ -7,6 +7,7 @@ import Stats from './components/Stats'
 import Statement from './components/Statement'
 import Products from './components/Products'
 import Testimonials from './components/Testimonials'
+import Reach from './components/Reach'
 import Brands from './components/Brands'
 import Footer from './components/Footer'
 import SideTab from './components/SideTab'
@@ -27,6 +28,7 @@ function App() {
         <Statement />
         <Products />
         <Testimonials />
+        <Reach />
         <Brands />
         <Footer />
       </main>

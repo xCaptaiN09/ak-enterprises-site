@@ -153,9 +153,9 @@ export default function Hero() {
         <div className="flex flex-1 flex-col gap-10 lg:flex-row lg:items-stretch lg:gap-0">
           <div className="flex flex-1 flex-col justify-between">
             <h1 className="text-[clamp(52px,9vw,128px)] leading-[0.82] tracking-tight text-white font-normal">
-              <motion.span className="block" {...fadeUp(0.2)}>Batteries,</motion.span>
-              <motion.span className="block text-white/50" {...fadeUp(0.35)}>Inverters,</motion.span>
-              <motion.span className="block" {...fadeUp(0.5)}>Solar + Tyres</motion.span>
+              <motion.span className="block" {...fadeUp(0.2)}>Batteries</motion.span>
+              <motion.span className="text-outline block pl-[8vw]" {...fadeUp(0.35)}>Inverters</motion.span>
+              <motion.span className="block" {...fadeUp(0.5)}>Solar <span className="text-neon">+</span> Tyres</motion.span>
             </h1>
 
             <div className="mt-10 lg:mt-0">
