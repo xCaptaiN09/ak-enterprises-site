@@ -1,7 +1,7 @@
 const rows = [
   { label: 'Phone', value: '+91 87147 90106', href: 'tel:+918714790106' },
   { label: 'WhatsApp', value: '+91 87147 90106', href: 'https://wa.me/918714790106' },
-  { label: 'Address', value: 'East Moozhikkal, PO Chelavoor, Kozhikode, Kerala 673571', href: 'https://www.google.com/maps/search/?api=1&query=Chelavoor+Kozhikode+Kerala+673571' },
+  { label: 'Address', value: 'East Moozhikkal, PO Chelavoor, Kozhikode, Kerala 673571', href: 'https://maps.app.goo.gl/1MYtbcAKfvJYjDq27' },
   { label: 'Hours', value: 'Mon-Sat 9:00-20:00 / Sun 10:00-20:00', href: '#contact' },
 ];
 

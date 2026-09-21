@@ -180,9 +180,9 @@ export default function Hero() {
 
           <motion.div {...fadeRight(0.4)} className="flex lg:flex-col lg:justify-end lg:pl-10 xl:pl-16">
             <div className="relative w-full max-w-[410px] rounded-[24px] p-8">
-              <div className="pointer-events-none absolute inset-0 rounded-[24px] backdrop-blur-[12.5px]" />
-              <div className="pointer-events-none absolute inset-0 rounded-[24px] bg-black/25 mix-blend-soft-light" />
-              <div className="pointer-events-none absolute inset-0 rounded-[24px] border border-white/10" />
+              <div className="pointer-events-none absolute inset-0 rounded-[24px] backdrop-blur-[20px] backdrop-saturate-150" />
+              <div className="pointer-events-none absolute inset-0 rounded-[24px] bg-gradient-to-br from-white/10 via-white/5 to-white/[0.02]" />
+              <div className="pointer-events-none absolute inset-0 rounded-[24px] border border-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.18),inset_0_0_30px_rgba(255,255,255,0.04)]" />
 
               <div className="relative">
                 <div className="flex items-center gap-3">
@@ -230,7 +230,7 @@ export default function Hero() {
                   </motion.a>
                 </div>
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=Chelavoor+Kozhikode+Kerala+673571"
+                  href="https://maps.app.goo.gl/1MYtbcAKfvJYjDq27"
                   target="_blank"
                   rel="noreferrer"
                   className="mt-4 block text-center font-mono text-[11px] tracking-widest text-white/50 uppercase transition-colors hover:text-neon"
