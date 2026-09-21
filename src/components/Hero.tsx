@@ -29,33 +29,50 @@ const NAV = [
   { label: 'Contact', href: '#contact' },
 ];
 
-const CLOSE_HOUR: Record<number, number> = { 0: 13, 1: 20, 2: 20, 3: 20, 4: 20, 5: 20, 6: 20 };
+const HOURS: Record<number, [number, number]> = {
+  0: [10, 20],
+  1: [9, 20],
+  2: [9, 20],
+  3: [9, 20],
+  4: [9, 20],
+  5: [9, 20],
+  6: [9, 20],
+};
+
+function fmtHour(h: number): string {
+  const suffix = h >= 12 ? 'PM' : 'AM';
+  const hr = h % 12 === 0 ? 12 : h % 12;
+  return `${hr}:00 ${suffix}`;
+}
 
 function shopStatus() {
   const ist = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
-  const close = CLOSE_HOUR[ist.getDay()];
+  const [openH, closeH] = HOURS[ist.getDay()];
   const h = ist.getHours() + ist.getMinutes() / 60;
-  const open = h >= 9 && h < close;
-  const closeText = close === 13 ? '1:00 PM' : '8:00 PM';
-  const label = open ? `Open now · closes ${closeText}` : h < 9 ? 'Closed · opens 9:00 AM' : 'Closed · opens 9:00 AM tomorrow';
+  const open = h >= openH && h < closeH;
+  const label = open
+    ? `Open now · closes ${fmtHour(closeH)}`
+    : h < openH
+      ? `Closed · opens ${fmtHour(openH)}`
+      : `Closed · opens ${fmtHour(openH)} tomorrow`;
   return { open, label };
 }
 
 function Logo() {
   return (
-    <svg width="142" height="50" viewBox="0 0 142 50" fill="none">
+    <svg width="176" height="50" viewBox="0 0 176 50" fill="none">
       <defs>
-        <linearGradient id="ak-grad" x1="0" y1="0" x2="142" y2="0" gradientUnits="userSpaceOnUse">
+        <linearGradient id="ak-grad" x1="0" y1="0" x2="176" y2="0" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="#ffffff" stopOpacity="0.6" />
           <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
         </linearGradient>
       </defs>
       <circle cx="17" cy="22" r="14" fill="#5eead4" />
       <path d="M19.5 13 11 24h5.5L14 31l8.5-11H17l2.5-7Z" fill="#0b0b0c" />
-      <text x="38" y="28" fill="#ffffff" fontFamily="PP Mori, Inter, sans-serif" fontWeight="600" fontSize="17">
+      <text x="38" y="27" fill="#ffffff" fontFamily="PP Mori, Inter, sans-serif" fontWeight="600" fontSize="16">
         AK Enterprises
       </text>
-      <rect x="38" y="36" width="96" height="2" rx="1" fill="url(#ak-grad)" opacity="0.6" />
+      <rect x="38" y="35" width="130" height="2" rx="1" fill="url(#ak-grad)" opacity="0.6" />
     </svg>
   );
 }
@@ -162,59 +179,65 @@ export default function Hero() {
           </div>
 
           <motion.div {...fadeRight(0.4)} className="flex lg:flex-col lg:justify-end lg:pl-10 xl:pl-16">
-            <div className="w-full max-w-[410px] rounded-[24px] border border-white/10 bg-coal p-8">
-              <div className="flex items-center gap-3">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-60 ${open ? 'bg-neon' : 'bg-white/40'}`} />
-                  <span className={`relative inline-flex h-2.5 w-2.5 rounded-full ${open ? 'bg-neon' : 'bg-white/40'}`} />
-                </span>
-                <span className="font-mono text-[11px] tracking-widest text-white/70 uppercase">{label}</span>
-              </div>
+            <div className="relative w-full max-w-[410px] rounded-[24px] p-8">
+              <div className="pointer-events-none absolute inset-0 rounded-[24px] backdrop-blur-[12.5px]" />
+              <div className="pointer-events-none absolute inset-0 rounded-[24px] bg-black/25 mix-blend-soft-light" />
+              <div className="pointer-events-none absolute inset-0 rounded-[24px] border border-white/10" />
 
-              <h2 className="mt-6 text-[28px] leading-[32px] text-white">AK Enterprises, Chelavoor</h2>
-              <p className="mt-4 text-[15px] leading-6 text-white/60">
-                East Moozhikkal, PO Chelavoor, Kozhikode, Kerala 673571
-              </p>
-
-              <div className="mt-6 space-y-2 border-t border-white/10 pt-6 font-mono text-[11px] tracking-widest text-white/50 uppercase">
-                <div className="flex justify-between">
-                  <span>Mon - Sat</span>
-                  <span className="text-white/80">9:00 - 20:00</span>
+              <div className="relative">
+                <div className="flex items-center gap-3">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-60 ${open ? 'bg-neon' : 'bg-white/40'}`} />
+                    <span className={`relative inline-flex h-2.5 w-2.5 rounded-full ${open ? 'bg-neon' : 'bg-white/40'}`} />
+                  </span>
+                  <span className="font-mono text-[11px] tracking-widest text-white/70 uppercase">{label}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span>Sunday</span>
-                  <span className="text-white/80">9:00 - 13:00</span>
-                </div>
-              </div>
 
-              <div className="mt-8 flex gap-3">
-                <motion.a
-                  href="tel:+918714790106"
-                  whileHover={{ scale: 1.03, backgroundColor: '#f0f0f0' }}
-                  whileTap={{ scale: 0.97 }}
-                  transition={{ duration: 0.18, ease: 'easeOut' }}
-                  className="flex h-12 flex-1 items-center justify-center rounded-[10px] bg-white text-base leading-6 font-semibold text-black"
+                <h2 className="mt-6 text-[28px] leading-[32px] text-white">AK Enterprises, Chelavoor</h2>
+                <p className="mt-4 text-[15px] leading-6 text-white/60">
+                  East Moozhikkal, PO Chelavoor, Kozhikode, Kerala 673571
+                </p>
+
+                <div className="mt-6 space-y-2 border-t border-white/10 pt-6 font-mono text-[11px] tracking-widest text-white/50 uppercase">
+                  <div className="flex justify-between">
+                    <span>Mon - Sat</span>
+                    <span className="text-white/80">9:00 - 20:00</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Sunday</span>
+                    <span className="text-white/80">10:00 - 20:00</span>
+                  </div>
+                </div>
+
+                <div className="mt-8 flex gap-3">
+                  <motion.a
+                    href="tel:+918714790106"
+                    whileHover={{ scale: 1.03, backgroundColor: '#f0f0f0' }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ duration: 0.18, ease: 'easeOut' }}
+                    className="flex h-12 flex-1 items-center justify-center rounded-[10px] bg-white text-base leading-6 font-semibold text-black"
+                  >
+                    Call Now
+                  </motion.a>
+                  <motion.a
+                    href="https://wa.me/918714790106"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ duration: 0.18, ease: 'easeOut' }}
+                    className="flex h-12 flex-1 items-center justify-center rounded-[10px] border border-white/20 text-base leading-6 font-semibold text-white"
+                  >
+                    WhatsApp
+                  </motion.a>
+                </div>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Chelavoor+Kozhikode+Kerala+673571"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-4 block text-center font-mono text-[11px] tracking-widest text-white/50 uppercase transition-colors hover:text-neon"
                 >
-                  Call Now
-                </motion.a>
-                <motion.a
-                  href="https://wa.me/918714790106"
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  transition={{ duration: 0.18, ease: 'easeOut' }}
-                  className="flex h-12 flex-1 items-center justify-center rounded-[10px] border border-white/20 text-base leading-6 font-semibold text-white"
-                >
-                  WhatsApp
-                </motion.a>
+                  Get directions ↗
+                </a>
               </div>
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=Chelavoor+Kozhikode+Kerala+673571"
-                target="_blank"
-                rel="noreferrer"
-                className="mt-4 block text-center font-mono text-[11px] tracking-widest text-white/50 uppercase transition-colors hover:text-neon"
-              >
-                Get directions ↗
-              </a>
             </div>
           </motion.div>
         </div>
