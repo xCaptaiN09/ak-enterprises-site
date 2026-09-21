@@ -26,7 +26,10 @@ export default function Footer() {
           </div>
         </div>
 
-        <h2 className="display mt-24 text-[16vw] text-white/85 md:text-[11rem]">/ Contact</h2>
+        <div className="mt-24 flex items-end justify-between gap-10">
+          <h2 className="display text-[16vw] text-white/85 md:text-[11rem]">/ Contact</h2>
+          <img src={`${import.meta.env.BASE_URL}img/logo-white.svg`} alt="AK Enterprises" className="mb-6 h-32 w-auto md:h-44" />
+        </div>
 
         <div className="mt-16 flex flex-col gap-3 font-mono text-[10px] tracking-widest text-white/35 uppercase md:flex-row md:items-center md:justify-between">
           <span>AK Enterprises — Chelavoor</span>

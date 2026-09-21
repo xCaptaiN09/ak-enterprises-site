@@ -60,20 +60,10 @@ function shopStatus() {
 
 function Logo() {
   return (
-    <svg width="176" height="50" viewBox="0 0 176 50" fill="none">
-      <defs>
-        <linearGradient id="ak-grad" x1="0" y1="0" x2="176" y2="0" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#ffffff" stopOpacity="0.6" />
-          <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <circle cx="17" cy="22" r="14" fill="#5eead4" />
-      <path d="M19.5 13 11 24h5.5L14 31l8.5-11H17l2.5-7Z" fill="#0b0b0c" />
-      <text x="38" y="27" fill="#ffffff" fontFamily="PP Mori, Inter, sans-serif" fontWeight="600" fontSize="16">
-        AK Enterprises
-      </text>
-      <rect x="38" y="35" width="130" height="2" rx="1" fill="url(#ak-grad)" opacity="0.6" />
-    </svg>
+    <span className="flex items-center gap-3">
+      <img src={`${import.meta.env.BASE_URL}img/logo-neon.svg`} alt="AK Enterprises" className="h-10 w-10" />
+      <span className="text-base font-semibold leading-6 text-white">AK Enterprises</span>
+    </span>
   );
 }
 
@@ -171,7 +161,7 @@ export default function Hero() {
             <div className="mt-10 lg:mt-0">
               <motion.p
                 {...fadeUp(0.65)}
-                className="w-full text-[clamp(15px,1.3vw,18px)] leading-6 text-white/80 sm:w-[300px]"
+                className="w-full font-mono text-[clamp(13px,1.15vw,16px)] leading-7 tracking-[0.02em] text-white/75 sm:w-[340px]"
               >
                 Premium batteries, inverters, solar systems and tyres — sold, fitted and serviced under one roof in Chelavoor, Kozhikode.
               </motion.p>
@@ -179,12 +169,12 @@ export default function Hero() {
           </div>
 
           <motion.div {...fadeRight(0.4)} className="flex lg:flex-col lg:justify-end lg:pl-10 xl:pl-16">
-            <div className="relative w-full max-w-[410px] rounded-[24px] p-8">
-              <div className="pointer-events-none absolute inset-0 rounded-[24px] backdrop-blur-[20px] backdrop-saturate-150" />
-              <div className="pointer-events-none absolute inset-0 rounded-[24px] bg-gradient-to-br from-white/10 via-white/5 to-white/[0.02]" />
-              <div className="pointer-events-none absolute inset-0 rounded-[24px] border border-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.18),inset_0_0_30px_rgba(255,255,255,0.04)]" />
+            <div className="relative w-full max-w-[410px] rounded-[35px] p-[30px]">
+              <div className="pointer-events-none absolute inset-0 rounded-[35px] backdrop-blur-[30px]" />
+              <div className="frost-grain pointer-events-none absolute inset-0 rounded-[35px] opacity-[0.22] mix-blend-overlay" />
+              <div className="pointer-events-none absolute inset-0 rounded-[35px] bg-black/30 mix-blend-soft-light" />
 
-              <div className="relative">
+              <div className="relative flex flex-col gap-[30px]">
                 <div className="flex items-center gap-3">
                   <span className="relative flex h-2.5 w-2.5">
                     <span className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-60 ${open ? 'bg-neon' : 'bg-white/40'}`} />
@@ -193,12 +183,14 @@ export default function Hero() {
                   <span className="font-mono text-[11px] tracking-widest text-white/70 uppercase">{label}</span>
                 </div>
 
-                <h2 className="mt-6 text-[28px] leading-[32px] text-white">AK Enterprises, Chelavoor</h2>
-                <p className="mt-4 text-[15px] leading-6 text-white/60">
-                  East Moozhikkal, PO Chelavoor, Kozhikode, Kerala 673571
-                </p>
+                <div>
+                  <h2 className="text-[28px] leading-[32px] text-white">AK Enterprises, Chelavoor</h2>
+                  <p className="mt-3 text-[15px] leading-6 text-white/60">
+                    East Moozhikkal, PO Chelavoor, Kozhikode, Kerala 673571
+                  </p>
+                </div>
 
-                <div className="mt-6 space-y-2 border-t border-white/10 pt-6 font-mono text-[11px] tracking-widest text-white/50 uppercase">
+                <div className="space-y-2 border-t border-white/10 pt-6 font-mono text-[11px] tracking-widest text-white/50 uppercase">
                   <div className="flex justify-between">
                     <span>Mon - Sat</span>
                     <span className="text-white/80">9:00 - 20:00</span>
@@ -209,7 +201,7 @@ export default function Hero() {
                   </div>
                 </div>
 
-                <div className="mt-8 flex gap-3">
+                <div className="flex gap-3">
                   <motion.a
                     href="tel:+918714790106"
                     whileHover={{ scale: 1.03, backgroundColor: '#f0f0f0' }}
@@ -233,7 +225,7 @@ export default function Hero() {
                   href="https://maps.app.goo.gl/1MYtbcAKfvJYjDq27"
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-4 block text-center font-mono text-[11px] tracking-widest text-white/50 uppercase transition-colors hover:text-neon"
+                  className="block text-center font-mono text-[11px] tracking-widest text-white/50 uppercase transition-colors hover:text-neon"
                 >
                   Get directions ↗
                 </a>
