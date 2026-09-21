@@ -1,7 +1,7 @@
 const products = [
-  { name: 'Car Batteries', cat: 'Battery', img: '/img/prod-car-battery.webp' },
-  { name: 'Bike Batteries', cat: 'Battery', img: '/img/prod-bike-battery.webp' },
+  { name: 'Car & Bike Batteries', cat: 'Battery', img: '/img/prod-car-bike-battery.webp' },
   { name: 'Inverters & UPS', cat: 'Backup', img: '/img/prod-inverter.webp' },
+  { name: 'LiON Inverters', cat: 'Lithium', img: '/img/prod-lion-inverter.webp' },
   { name: 'Solar Kits', cat: 'Solar', img: '/img/prod-solar.webp' },
   { name: 'Tyres', cat: 'Tyre', img: '/img/prod-tyre.webp' },
   { name: 'Engine Oil', cat: 'Service', img: '/img/prod-oil.webp' },
